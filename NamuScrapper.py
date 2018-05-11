@@ -19,10 +19,12 @@ lashort = 0
 changer = 0
 nameit = 1
 title = 0
+awaittime = 0.4
 check = 'a'
 while availd == 0:
 max = int(input("크롤링 반복 횟수를 입력해 주세요."))
 short = int(input("시작 글자수를 입력해 주세요."))
+awaittime = int(input("크롤링 대기시간을 입력해 주세요.\n(대기시간이 줄어들면 속도가 빨라지지만, 리캡챠가 뜰 가능성도 높아집니다. 평균 0.3에서 0.5초를 추천합니다.)"))
 pick = re.compile('<li>.+\'\/w\/(.+)\'>(.+)<\/a> \((.+)글자\)<\/li>')
 cap = re.compile('<title>비정상적인 트래픽 감지</title>')
 before1 = ['&#39;','&quot;','&lt;','&gt;','&amp;']
@@ -86,7 +88,7 @@ while count < max:
 						save.close()
 						print('%s 문서 스크랩 완료' % m.group(2))
 						source = pick.sub('finished', source, count=1)
-					time.sleep(0.4)
+					time.sleep(awaittime)
 			else: break
 		except:
 			print('오류 발생. 재시작합니다.')
